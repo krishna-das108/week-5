@@ -1,46 +1,36 @@
 #include<stdio.h>
-int rep=0;
-int freq(int ind,int a[],int n);
+void hailstoneSequence(int *num, int *steps);
 int main()
 {
-    int n,i,f;
-    scanf("%d",&n);
-    int arr[n];
-    for(i=0;i<n;i++)
-    {
-    scanf("%d",&arr[i]);
-    }
-    for(i=0;i<n;i++)
-    {
-        f = freq(i,arr,n);
-        if(rep==1)
-        {
-            rep =0;
-            continue;
-        }
-        printf("%d ",f);
-    }
+    int steps=0,num;
+    scanf("%d",&num);
+    hailstoneSequence(&num,&steps);
+    printf("\n%d",steps);
     return 0;
 }
 
-int freq(int ind,int a[],int n)
+void hailstoneSequence(int *num, int *steps)
 {
-    int i, f=0;
-    for(i=0;i<ind;i++)
+    if(*num==1)
     {
-
-        if(a[ind]==a[i])
-        {
-            rep=1;
-            return 0;
-        }
+        printf("%d ",*num);
     }
-    for(i=0;i<n;i++)
+    else
     {
-        if(a[ind]==a[i])
-        {
-            f++;
-        }
+    if(*num%2==0)
+    {
+        *steps+=1;
+        printf("%d ",*num);
+        *num/=2;
+        hailstoneSequence(num,steps);
     }
-    return f;
+    if(*num!=1&&*num%2==1)
+    {
+        *steps+=1;
+        printf("%d ",*num);
+        *num*=3;
+        *num+=1;
+        hailstoneSequence(num,steps);
+    }
+}
 }
